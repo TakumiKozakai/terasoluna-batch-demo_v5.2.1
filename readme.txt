@@ -1,4 +1,4 @@
-20200528_terasoluna-batch-tutorial_v5.2.1
+20200528_terasoluna-batch-demo_v5.2.1
 
 1.概要及び背景
 　terasoluna-batch-FW_v5.2.1を用いたデモを実施。
