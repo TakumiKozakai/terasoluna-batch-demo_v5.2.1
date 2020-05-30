@@ -45,7 +45,7 @@
 	<batch:job id="TaskletInfo2" job-repository="jobRepository">
 		<batch:step id="TaskletInfo2.step01">
 			<batch:tasklet
-				transaction-manager="jobTransactionManager" ref="TaskletInfo2"/>
+				transaction-manager="jobTransactionManager" ref="info2Tasklet"/>
 		</batch:step>
 		<batch:listeners>
 			<batch:listener ref="jobExecutionLoggingListener" />

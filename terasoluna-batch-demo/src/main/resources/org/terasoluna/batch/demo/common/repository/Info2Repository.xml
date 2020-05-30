@@ -12,8 +12,8 @@
 			type,
 			status,
 			point,
-			create_date,
-			update_date,
+			create_date as createDate,
+			update_date as updateDate,
 			delete_flg
 		FROM
 			info2
