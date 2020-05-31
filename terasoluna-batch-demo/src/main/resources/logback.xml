@@ -35,6 +35,8 @@
 	<logger name="org.terasoluna.batch" level="ERROR"/>
 	-->
 
+	<logger name="org.terasoluna.batch" level="TRACE"/>
+
 	<root level="INFO">
 		<appender-ref ref="consoleLog" />
 		<appender-ref ref="APPLICATION_LOG_FILE" />
