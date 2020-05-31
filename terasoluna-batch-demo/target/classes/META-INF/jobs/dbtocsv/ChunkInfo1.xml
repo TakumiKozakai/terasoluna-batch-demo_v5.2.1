@@ -48,7 +48,7 @@
 			<batch:tasklet
 				transaction-manager="jobTransactionManager">
 				<batch:chunk reader="reader" processor=""
-					writer="writer" commit-interval="10" />
+					writer="writer" commit-interval="1000" />
 			</batch:tasklet>
 		</batch:step>
 		<batch:listeners>
