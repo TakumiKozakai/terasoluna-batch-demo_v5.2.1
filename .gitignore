@@ -1,2 +1,4 @@
 /.metadata/
-/.terasoluna-batch-demo/log/
+/terasoluna-batch-demo/log/
+.DS_Store
+terasoluna-batch-demo/target/
