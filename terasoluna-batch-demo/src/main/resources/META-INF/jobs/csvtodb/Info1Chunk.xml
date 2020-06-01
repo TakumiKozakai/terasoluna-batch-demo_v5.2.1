@@ -14,7 +14,8 @@
 		resource="classpath:META-INF/spring/job-base-context.xml" />
 
 	<context:component-scan
-		base-package="org.terasoluna.batch.demo" />
+		base-package="org.terasoluna.batch.demo.common,
+		org.terasoluna.batch.demo.csvtodb" />
 
 	<mybatis:scan
 		base-package="org.terasoluna.batch.demo.common.repository"
@@ -52,16 +53,16 @@
 		p:statementId="org.terasoluna.batch.demo.common.repository.Info1Repository.delete"
 		p:sqlSessionTemplate-ref="batchModeSqlSessionTemplate" />
 
-	<batch:job id="ChunkInfo1" job-repository="jobRepository">
-		<batch:step id="ChunkInfo1.step01" next="ChunkInfo1.step02">
+	<batch:job id="Info1Chunk" job-repository="jobRepository">
+		<batch:step id="Info1Chunk.step01" next="Info1Chunk.step02">
 			<batch:tasklet
 				transaction-manager="jobTransactionManager">
 				<batch:chunk reader="reader" processor="info1UpdateProcessor"
 					writer="updateWriter" commit-interval="10" />
 			</batch:tasklet>
 		</batch:step>
-		<batch:step id="ChunkInfo1.step02"
-			parent="ChunkInfo1.step01">
+		<batch:step id="Info1Chunk.step02"
+			parent="Info1Chunk.step01">
 			<batch:tasklet
 				transaction-manager="jobTransactionManager">
 				<batch:chunk reader="reader" processor="info1DeleteProcessor"
