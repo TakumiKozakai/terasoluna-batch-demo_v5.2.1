@@ -14,7 +14,8 @@
 		resource="classpath:META-INF/spring/job-base-context.xml" />
 
 	<context:component-scan
-		base-package="org.terasoluna.batch.demo" />
+		base-package="org.terasoluna.batch.demo.common,
+		org.terasoluna.batch.demo.csvtodb" />
 
 	<mybatis:scan
 		base-package="org.terasoluna.batch.demo.common.repository"
@@ -42,8 +43,8 @@
 		</property>
 	</bean>
 
-	<batch:job id="TaskletInfo1" job-repository="jobRepository">
-		<batch:step id="TaskletInfo1.step01">
+	<batch:job id="Info1Tasklet" job-repository="jobRepository">
+		<batch:step id="Info1Tasklet.step01">
 			<batch:tasklet
 				transaction-manager="jobTransactionManager" ref="info1Tasklet"/>
 		</batch:step>
