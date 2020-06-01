@@ -14,10 +14,45 @@
 		resource="classpath:META-INF/spring/job-base-context.xml" />
 
 	<context:component-scan
-		base-package="org.terasoluna.batch.demo" />
+		base-package="org.terasoluna.batch.demo.common,
+		org.terasoluna.batch.demo.dbtocsv" />
 
 	<mybatis:scan
 		base-package="org.terasoluna.batch.demo.common.repository"
 		factory-ref="jobSqlSessionFactory" />
+
+	<bean id="reader"
+		class="org.mybatis.spring.batch.MyBatisCursorItemReader"
+		p:queryId="org.terasoluna.batch.demo.common.repository.Info1Repository.cursor"
+		p:sqlSessionFactory-ref="jobSqlSessionFactory" />
+
+	<bean id="writer"
+		class="org.springframework.batch.item.file.FlatFileItemWriter"
+		scope="step" p:resource="file:#{jobParameters['outputFile']}"
+		p:encoding="UTF-8" p:lineSeparator="&#x0A;" p:appendAllowed="false"
+		p:shouldDeleteIfExists="true" p:transactional="true"
+		p:headerCallback-ref="info1WriteHeaderFlatFileHeaderCallback">
+		<property name="lineAggregator">
+			<bean
+				class="org.springframework.batch.item.file.transform.DelimitedLineAggregator"
+				p:delimiter=",">
+				<property name="fieldExtractor">
+					<bean
+						class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor"
+						p:names="id,type,status,point,createDate,updateDate" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<batch:job id="Info1Tasklet" job-repository="jobRepository">
+		<batch:step id="Info1Tasklet.step01">
+			<batch:tasklet
+				transaction-manager="jobTransactionManager" ref="info1Tasklet" />
+		</batch:step>
+		<batch:listeners>
+			<batch:listener ref="jobExecutionLoggingListener" />
+		</batch:listeners>
+	</batch:job>
 
 </beans>
