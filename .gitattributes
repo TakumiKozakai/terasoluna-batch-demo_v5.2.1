@@ -1,5 +1,5 @@
 terasoluna-batch-demo/files/input/input-info1-data.csv filter=lfs diff=lfs merge=lfs -text
-/Users/kozakaitakumi/Workspace/Java/20200526_terasoluna-batch-demo_v5.2.1/terasoluna-batch-demo/files/setup/setup-info1-data(1~500000).csv filter=lfs diff=lfs merge=lfs -text
+terasoluna-batch-demo/files/setup/setup-info1-data(1~500000).csv filter=lfs diff=lfs merge=lfs -text
 data-for-input(1~500000).xlsx filter=lfs diff=lfs merge=lfs -text
 data-for-setup(1~500000).xlsx filter=lfs diff=lfs merge=lfs -text
 terasoluna-batch-demo/files filter=lfs diff=lfs merge=lfs -text
