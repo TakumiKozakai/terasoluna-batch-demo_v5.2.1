@@ -14,7 +14,7 @@ import org.terasoluna.batch.demo.common.repository.HeaderRepository;
 
 @Component
 @Scope("step")
-public class Info1FlatFileHeaderWriter implements FlatFileHeaderCallback {
+public class Info2FlatFileHeaderWriter implements FlatFileHeaderCallback {
 
 	@Inject
 	HeaderRepository headerRepository;

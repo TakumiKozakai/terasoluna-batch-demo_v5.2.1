@@ -15,7 +15,7 @@
 
 	<context:component-scan
 		base-package="org.terasoluna.batch.demo.common,
-		org.terasoluna.batch.demo.dbtocsv" />
+					org.terasoluna.batch.demo.dbtocsv" />
 
 	<mybatis:scan
 		base-package="org.terasoluna.batch.demo.common.repository"
@@ -28,9 +28,14 @@
 
 	<bean id="writer"
 		class="org.springframework.batch.item.file.FlatFileItemWriter"
-		scope="step" p:resource="file:#{jobParameters['outputFile']}"
-		p:encoding="UTF-8" p:lineSeparator="&#x0A;" p:appendAllowed="false"
-		p:shouldDeleteIfExists="true" p:transactional="true" p:headerCallback-ref="info1WriteHeaderFlatFileHeaderCallback">
+		scope="step"
+		p:resource="file:#{jobParameters['outputFile']}"
+		p:encoding="UTF-8"
+		p:lineSeparator="&#x0A;"
+		p:appendAllowed="false"
+		p:shouldDeleteIfExists="true"
+		p:transactional="true"
+		p:headerCallback-ref="info1WriteHeaderFlatFileHeaderCallback">
 		<property name="lineAggregator">
 			<bean
 				class="org.springframework.batch.item.file.transform.DelimitedLineAggregator"
@@ -48,8 +53,11 @@
 		<batch:step id="Info1Chunk.step01">
 			<batch:tasklet
 				transaction-manager="jobTransactionManager">
-				<batch:chunk reader="reader" processor=""
-					writer="writer" commit-interval="1000" />
+				<batch:chunk
+					reader="reader"
+					processor=""
+					writer="writer"
+					commit-interval="10000" />
 			</batch:tasklet>
 		</batch:step>
 		<batch:listeners>

@@ -15,7 +15,7 @@
 
 	<context:component-scan
 		base-package="org.terasoluna.batch.demo.common,
-		org.terasoluna.batch.demo.csvtodb" />
+					org.terasoluna.batch.demo.csvtodb" />
 
 	<mybatis:scan
 		base-package="org.terasoluna.batch.demo.common.repository"
@@ -23,16 +23,21 @@
 
 	<bean id="reader"
 		class="org.springframework.batch.item.file.FlatFileItemReader"
-		scope="step" p:resource="file:#{jobParameters['inputFile']}"
-		p:encoding="UTF-8" p:strict="true">
+		scope="step"
+		p:resource="file:#{jobParameters['inputFile']}"
+		p:encoding="UTF-8"
+		p:strict="true">
 		<property name="lineMapper">
 			<bean
 				class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
 				<property name="lineTokenizer">
 					<bean
 						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer"
+
 						p:names="id,type,status,point,updateKbn,createDate,updateDate"
-						p:delimiter="," p:quoteCharacter='"' />
+
+						p:delimiter=","
+						p:quoteCharacter='"' />
 				</property>
 				<property name="fieldSetMapper">
 					<bean

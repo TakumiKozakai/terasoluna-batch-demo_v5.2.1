@@ -2,6 +2,8 @@ package org.terasoluna.batch.demo.csvtodb.tasklet;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -16,6 +18,8 @@ import org.terasoluna.batch.demo.common.repository.Info1Repository;
 @Component
 @Scope("step")
 public class Info1Tasklet implements Tasklet {
+
+	private static final Logger logger = LoggerFactory.getLogger(Info1Tasklet.class);
 
 	@Inject
 	ItemStreamReader<Info1Dto> reader;
@@ -39,11 +43,16 @@ public class Info1Tasklet implements Tasklet {
 					repository.delete(item);
 
 			}
+		} catch (ItemStreamException e) {
+			logger.error("ItemStreamException [Class:{}]", this);
+			e.printStackTrace();
+
 		} finally {
 			try {
 				reader.close();
 			} catch (ItemStreamException e) {
-				// do nothing.
+				logger.error("ItemStreamException [Class:{}]", this);
+				e.printStackTrace();
 			}
 		}
 

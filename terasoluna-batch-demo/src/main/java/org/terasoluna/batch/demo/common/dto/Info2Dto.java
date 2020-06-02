@@ -5,7 +5,7 @@ import javax.validation.constraints.Max;
 import lombok.Data;
 
 @Data
-public class Info2Dto extends Info {
+public class Info2Dto extends BaseDto {
 
 	private String id;
 	private String type;

@@ -21,7 +21,7 @@
 			id ASC
 	</select>
 
-	<update id="updatePointAndStatus"
+	<update id="update"
 		parameterType="org.terasoluna.batch.demo.common.dto.Info1Dto">
 		UPDATE
 			info1
