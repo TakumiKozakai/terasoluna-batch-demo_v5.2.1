@@ -1,5 +1,8 @@
 package org.terasoluna.batch.demo.common.listener;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.JobExecution;
@@ -17,7 +20,7 @@ public class JobExecutionLoggingListener implements JobExecutionListener {
 	public void beforeJob(JobExecution jobExecution) {
 		logger.info("job started. [JobName:{}]", jobExecution.getJobInstance().getJobName());
 
-		// 開始時間計測
+		// 処理開始時間計測
 		startMillisTime = System.currentTimeMillis();
 		logger.trace("job TRACE started. [JobName:{}]", jobExecution.getJobInstance().getJobName());
 	}
@@ -27,11 +30,20 @@ public class JobExecutionLoggingListener implements JobExecutionListener {
 		logger.info("job finished.[JobName:{}][ExitStatus:{}]", jobExecution.getJobInstance().getJobName(),
 				jobExecution.getExitStatus().getExitCode());
 
-		// 終了時間計測
+		// 処理終了時間計測
 		endMillisTime = System.currentTimeMillis();
-		// 処理時間算出
-		long milli = endMillisTime - startMillisTime;
-		String strMilli = String.valueOf(milli);
-		logger.trace("job TRACE finished. [JobName:{}] : 処理時間（ミリ）： " + strMilli + " ms", jobExecution.getJobInstance().getJobName());
+		// 処理経過時間算出
+		long processingMillisTime = endMillisTime - startMillisTime;
+		// 処理経過時間をログ出力
+		logger.trace("job TRACE finished. [JobName:{}] : 処理時間（ミリ）： " + processingMillisTime + " ms", jobExecution.getJobInstance().getJobName());
+
+		// 処理経過時間をファイルに外出し
+		try {
+			PrintWriter pw = new PrintWriter("/log/processing-time.txt");
+			pw.println("[JobName:{}] : 処理時間（ミリ）： " + processingMillisTime + " ms");
+			pw.close();
+		} catch (IOException e) {
+			logger.error("When print processing-time, IOException. [JobName:{}]", jobExecution.getJobInstance().getJobName());
+		}
 	}
 }
