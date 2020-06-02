@@ -38,21 +38,21 @@ public class Info1Tasklet implements Tasklet {
 			while ((item = reader.read()) != null) {
 
 				if (item.getUpdateKbn() == 2)
-					repository.updatePointAndStatus(item);
+					repository.update(item);
 				else if (item.getUpdateKbn() == 3)
 					repository.delete(item);
 
 			}
-		} catch (ItemStreamException e) {
-			logger.error("ItemStreamException [Class:{}]", this);
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error("ItemStreamException [Class:{}]", this, e);
+			throw e; // トランザクションロールバックのためのスロー
 
 		} finally {
 			try {
 				reader.close();
 			} catch (ItemStreamException e) {
-				logger.error("ItemStreamException [Class:{}]", this);
-				e.printStackTrace();
+				logger.error("ItemStreamException [Class:{}]", this, e);
+				throw e;
 			}
 		}
 

@@ -36,8 +36,11 @@ public class Info1Tasklet implements Tasklet {
 			reader.open(chunkContext.getStepContext().getStepExecution().getExecutionContext());
 			writer.open(chunkContext.getStepContext().getStepExecution().getExecutionContext());
 
-			while ((item = reader.read()) != null) {
-				items.add(item);
+//			while ((item = reader.read()) != null) {
+//				items.add(item);
+//			}
+			for (int i = 0; i < 10; i++) {
+				items.add(reader.read());
 			}
 
 			writer.write(items);

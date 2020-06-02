@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public abstract class BaseDto {
 
-	private int updateKbn;
+	private String createrName;
 	private String createDate;
+	private String updaterName;
 	private String updateDate;
 
 }

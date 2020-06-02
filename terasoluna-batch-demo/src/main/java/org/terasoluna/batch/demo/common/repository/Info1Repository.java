@@ -6,7 +6,7 @@ import org.terasoluna.batch.demo.common.dto.Info1Dto;
 public interface Info1Repository {
 	Cursor<Info1Dto> cursor();
 
-	int updatePointAndStatus(Info1Dto info);
+	int update(Info1Dto info);
 
 	int delete(Info1Dto info);
 }
