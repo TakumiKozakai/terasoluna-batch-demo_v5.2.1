@@ -1,5 +1,7 @@
 package org.terasoluna.batch.demo.common.listener;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -39,11 +41,13 @@ public class JobExecutionLoggingListener implements JobExecutionListener {
 
 		// 処理経過時間をファイルに外出し
 		try {
-			PrintWriter pw = new PrintWriter("/log/processing-time.txt");
-			pw.println("[JobName:{}] : 処理時間（ミリ）： " + processingMillisTime + " ms");
+			FileWriter file = new FileWriter("log/processing-time.txt", true); // true:追記モード
+			PrintWriter pw = new PrintWriter(new BufferedWriter(file));
+			pw.println("=== processing-time ===");
+			pw.println("[JobName:{" +  jobExecution.getJobInstance().getJobName() + "}] : 処理時間（ミリ）： " + processingMillisTime + " ms");
 			pw.close();
 		} catch (IOException e) {
-			logger.error("When print processing-time, IOException. [JobName:{}]", jobExecution.getJobInstance().getJobName());
+			logger.error("IOException when print processing-time. [JobName:{}]", jobExecution.getJobInstance().getJobName());
 		}
 	}
 }
