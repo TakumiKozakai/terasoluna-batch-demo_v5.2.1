@@ -8,7 +8,7 @@ echo '＝＝＝Info1＝＝＝'
 echo '＝＝＝入力処理開始＝＝＝'
 start_time=`date +%s`
 
-java -cp 'lib/*:target/*' \
+time java -cp 'lib/*:target/*' \
 org.springframework.batch.core.launch.support.CommandLineJobRunner \
 META-INF/jobs/csvtodb/Info1Tasklet.xml \
 Info1Tasklet \
@@ -25,7 +25,7 @@ wait $!
 echo '＝＝＝CSV出力処理開始＝＝＝'
 start_time=`date +%s`
 
-java -cp 'lib/*:target/*' \
+time java -cp 'lib/*:target/*' \
 org.springframework.batch.core.launch.support.CommandLineJobRunner \
 META-INF/jobs/dbtocsv/Info1Chunk.xml \
 Info1Chunk \
@@ -38,5 +38,5 @@ echo '処理結果:' $?
 
 wait $!
 
-echo $time1
-echo $time2
+echo $time1's'
+echo $time2's'
